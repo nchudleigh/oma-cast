@@ -178,7 +178,7 @@
       return c
     })
     next = next.concat(RootSearch.menuCandidates(this.data.tree, this.data.guards, this.data.providerItems, deps))
-    RootSearch.BUILTINS.forEach(function (def) { next.push(RootSearch.builtinCandidate(def)) })
+    RootSearch.BUILTINS.forEach(function (def) { if (!def.requires) next.push(RootSearch.builtinCandidate(def)) }) // no Superwhisper in a browser
     var superseded = {}
     RootSearch.BUILTINS.forEach(function (d) { (d.supersedes || []).forEach(function (id) { superseded[id] = true }) })
     next = next.filter(function (c) { return !superseded[c.id] })

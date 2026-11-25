@@ -29,7 +29,7 @@ test("the bundled engine searches the site's Omarchy snapshot", async () => {
   const tree = Core.OmarchyMenu.buildTree(Core.OmarchyMenu.parse(JSON.stringify(snapshot.menu)).items, [])
   assert.ok(tree.order.length > 300, "the snapshot holds Omarchy's whole menu")
   const candidates = Core.RootSearch.menuCandidates(tree, snapshot.guards, {}, Core)
-    .concat(Core.RootSearch.BUILTINS.map(Core.RootSearch.builtinCandidate))
+    .concat(Core.RootSearch.BUILTINS.filter((d) => !d.requires).map(Core.RootSearch.builtinCandidate))
   const ctx = { commands: {}, frecency: {}, nowMs: Date.now(), sensitivity: "medium", filter: "all" }
   ctx.calculation = Core.Calculator.evaluate("100 usd to eur", { nowMs: ctx.nowMs, localOffset: 0, hour12: false, rates: snapshot.rates, zones: {}, remToPxRate: 16, workHoursPerDay: 8 })
   assert.ok(ctx.calculation && /€/.test(ctx.calculation.result), "the snapshot's exchange rates convert currencies")
