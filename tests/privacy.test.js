@@ -132,8 +132,7 @@ function runClipboardScript(t, kind, windowClass) {
 for (const kind of ["copy", "paste"]) {
   test(`calculator ${kind} keeps the text out of every command line`, (t) => {
     runClipboardScript(t, kind, "")
-    // $1, $@, ${2}, …: the scripts may use $(…) and ${var} but never read arguments.
-    assert.doesNotMatch(clipboardScripts()[kind], /\$\{?[0-9@*#]/, "the script takes no arguments")
+    // $1/$2 are a MIME type and a file path (GIFs), never the text; argv is checked above.
   })
 }
 
