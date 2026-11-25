@@ -3,8 +3,8 @@ import Quickshell.Io
 
 // Copies (and optionally pastes) text without putting it in any process's
 // argv, where other local users could read it from /proc. The text goes to
-// wl-copy on stdin; the paste is Shift+Insert, the keystroke Omarchy's own
-// omarchy-clipboard-paste-text sends for clipboard-history entries.
+// wl-copy on stdin; the paste is Ctrl+Shift+V in terminals and otherwise
+// Shift+Insert, the keystroke omarchy-clipboard-paste-text sends.
 Item {
   id: writer
 
