@@ -3,8 +3,8 @@ import Quickshell.Io
 
 // Copies (and optionally pastes) text without putting it in any process's
 // argv, where other local users could read it from /proc. The text goes to
-// wl-copy on stdin; the paste is Shift+Insert, the keystroke Omarchy's own
-// omarchy-clipboard-paste-text sends for clipboard-history entries.
+// wl-copy on stdin; the paste is Ctrl+Shift+V in terminals and otherwise
+// Shift+Insert, the keystroke omarchy-clipboard-paste-text sends.
 Item {
   id: writer
 
@@ -34,7 +34,7 @@ Item {
   readonly property string pasteScript: 'if [[ $2 ]]; then wl-copy ${1:+--type "$1"} <"$2"; else wl-copy ${1:+--type "$1"}; fi || exit; sleep 0.15
 class=$(hyprctl activewindow -j 2>/dev/null | jq -r ".class // empty" 2>/dev/null)
 case ${class,,} in
-  *alacritty*|*kitty*|foot|footclient|*wezterm*|*ghostty*|*konsole*|*gnome-terminal*|*ptyxis*|*herdr*)
+  *alacritty*|*kitty*|foot|footclient|*wezterm*|*ghostty*|*konsole*|*gnome-terminal*|*gnome.terminal*|*ptyxis*|*herdr*)
     wtype -M ctrl -M shift -k v -m shift -m ctrl 2>/dev/null || true ;;
   *) wtype -M shift -k Insert -m shift 2>/dev/null || true ;;
 esac'
